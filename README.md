@@ -1,3 +1,5 @@
+A way to add reverse proxy with SSL support for multiple docker containers.
+
 # HTTPS certificates
 Remember to create SSL certificates in
 * /home/ygou/projects/hello-nginx-proxy.config/site1
