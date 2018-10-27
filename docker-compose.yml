@@ -1,13 +1,34 @@
 version: '2'
 
 services:
-     nginx-proxy:
-         image: jwilder/nginx-proxy
-         ports:
-             - "80:80"
-         volumes:
-             - /var/run/docker.sock:/tmp/docker.sock:ro
-     whoami:
-         image: jwilder/whoami
-         environment:
-             - VIRTUAL_HOST=whoami.local
+
+    nginx-proxy2:                                                         
+        image: jwilder/nginx-proxy                                        
+        ports:                                                            
+            - "8080:80"                                                   
+            - "8443:443"                                                  
+        volumes:                                                          
+            - /var/run/docker.sock:/tmp/docker.sock:ro                    
+            - /home/ygou/projects/hello-nginx-proxy.config/site2:/etc/nginx/certs
+        environment:                                                      
+            - DEFAULT_HOST=whoami.local2                                  
+    whoami2:                                                              
+        image: jwilder/whoami                                             
+        environment:                                                      
+            - VIRTUAL_HOST=whoami.local2                                  
+
+    nginx-proxy:
+        image: jwilder/nginx-proxy
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+            - /home/ygou/projects/hello-nginx-proxy.config/site1:/etc/nginx/certs
+        environment:
+            - DEFAULT_HOST=whoami.local
+    whoami:
+        image: jwilder/whoami
+        environment:
+            - VIRTUAL_HOST=whoami.local
+
